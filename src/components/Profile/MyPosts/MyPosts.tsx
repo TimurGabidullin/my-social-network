@@ -2,7 +2,14 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post"
-import {ActionsType, PostType, ProfilePageType} from "../../../redux/state";
+import {
+    ActionsType, addPostActionCreator,
+    AddPostActonType,
+    PostType,
+    ProfilePageType, updateNewPostTextActionCreator,
+    UpdateNewPostTextActonType
+} from "../../../redux/state";
+
 
 //
 type MyPostsPropsType = {
@@ -25,13 +32,13 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     let newPostElement=React.createRef<HTMLTextAreaElement>()
 
     const addPostHandler = () => {
-        dispatch({type:"ADD-POST"})
+        dispatch(addPostActionCreator())
     }
 
 
     let onPostChange = () => {
         if (newPostElement.current) {
-            dispatch({type:"UPDATE-NEW-POST-TEXT",newText:newPostElement.current.value})
+            dispatch(updateNewPostTextActionCreator(newPostElement.current.value))
         }
         // updateMewPostText(newPostElement.current.value)
     }

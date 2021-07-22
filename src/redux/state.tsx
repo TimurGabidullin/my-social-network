@@ -1,6 +1,8 @@
-let rerenderEntireTree = () => {
-    console.log('state was changed')
-}
+
+const UPDATE_NEW_POST_TEXT ="UPDATE-NEW-POST-TEXT"
+const ADD_POST ='ADD-POST'
+
+
 
 
 export type PostType = {
@@ -37,11 +39,11 @@ export type RootStateType = {
     sidebar: SidebarType
 }
 
-type AddPostActonType = {
+export type AddPostActonType = {
     type: 'ADD-POST'
 }
 
-type UpdateNewPostTextActonType = {
+export type UpdateNewPostTextActonType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
@@ -50,7 +52,7 @@ export type ActionsType = AddPostActonType | UpdateNewPostTextActonType
 
 export type StoreType = {
     _state: RootStateType
-
+    _rerenderEntireTree:()=>void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
     dispatch:(action:ActionsType)=>void
@@ -83,8 +85,12 @@ const store:StoreType = {
         sidebar: {}
     },
 
+    _rerenderEntireTree () {
+        console.log('state was changed')
+    },
+
     subscribe(observer) {
-        rerenderEntireTree = observer
+        this._rerenderEntireTree = observer
     },
 
     getState() {
@@ -92,7 +98,7 @@ const store:StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             const newPost: PostType = {
                 id: 3,
                 message: this._state.profilePage.newPostText,
@@ -100,10 +106,10 @@ const store:StoreType = {
             }
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ''
-            rerenderEntireTree()
-        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+            this._rerenderEntireTree()
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
-            rerenderEntireTree()
+            this._rerenderEntireTree()
 
         }
 
@@ -111,6 +117,18 @@ const store:StoreType = {
 
 
 }
+
+export const addPostActionCreator = (): AddPostActonType => ({
+        type: "ADD-POST"
+    })
+
+
+export const updateNewPostTextActionCreator = (newText:string): UpdateNewPostTextActonType => ({
+        type: "UPDATE-NEW-POST-TEXT",
+        newText:newText
+    })
+
+
 
 
 export default store
