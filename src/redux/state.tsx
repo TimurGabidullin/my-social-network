@@ -39,16 +39,7 @@ export type RootStateType = {
     sidebar: SidebarType
 }
 
-export type AddPostActonType = {
-    type: 'ADD-POST'
-}
-
-export type UpdateNewPostTextActonType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-
-export type ActionsType = AddPostActonType | UpdateNewPostTextActonType
+export type ActionsType =ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
 
 export type StoreType = {
     _state: RootStateType
@@ -110,25 +101,21 @@ const store:StoreType = {
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
             this._rerenderEntireTree()
-
         }
-
     }
-
-
 }
 
-export const addPostActionCreator = (): AddPostActonType => ({
+export const addPostActionCreator = () => (
+    {
         type: "ADD-POST"
-    })
+    } as const
+)
 
-
-export const updateNewPostTextActionCreator = (newText:string): UpdateNewPostTextActonType => ({
+export const updateNewPostTextActionCreator = (newText: string) => (
+    {
         type: "UPDATE-NEW-POST-TEXT",
-        newText:newText
-    })
-
-
-
+        newText: newText
+    } as const
+)
 
 export default store

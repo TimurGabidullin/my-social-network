@@ -4,10 +4,8 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post"
 import {
     ActionsType, addPostActionCreator,
-    AddPostActonType,
-    PostType,
-    ProfilePageType, updateNewPostTextActionCreator,
-    UpdateNewPostTextActonType
+    PostType, updateNewPostTextActionCreator,
+
 } from "../../../redux/state";
 
 
@@ -34,7 +32,6 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     const addPostHandler = () => {
         dispatch(addPostActionCreator())
     }
-
 
     let onPostChange = () => {
         if (newPostElement.current) {
