@@ -15,7 +15,7 @@ type AppPropsType = {
 
 const App:React.FC<AppPropsType> = (props) => {
 
-    let {dialogs,messages} = props.state.dialogsPage
+    let {dialogs,messages,newMessageBody} = props.state.dialogsPage
     let {profilePage}=props.state
     let {dispatch}=props
     // let {updateMewPostText}=props
@@ -25,7 +25,10 @@ const App:React.FC<AppPropsType> = (props) => {
             <Header/>
             <Navbar/>
             <div className={'app-wrapper-content'}>
-                <Route path='/dialogs' render={() => <Dialogs dialogs={dialogs} messages={messages}/>}/>
+                <Route path='/dialogs' render={() => <Dialogs dialogs={dialogs}
+                                                              messages={messages}
+                                                              newMessageBody={newMessageBody}
+                                                              dispatch={dispatch}/>}/>
                 <Route path='/profile' render={() => <Profile profilePage={profilePage}
                                                               dispatch={dispatch}/>}/>
             </div>
