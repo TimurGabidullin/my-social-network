@@ -1,39 +1,39 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post"
-import {ActionsType, PostType} from "../../../redux/store";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
+import {PostType} from "../../../redux/store";
 
 
-//
+
 type MyPostsPropsType = {
     posts:Array<PostType>
-    dispatch: (action: ActionsType) => void
     newPostText:string
+    addPost:()=>void
+    updateNewPostText:(text:string)=>void
+
+
 }
 
+const MyPosts: React.FC<MyPostsPropsType> = ({posts,newPostText,addPost,updateNewPostText}) => {
 
 
-const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-
-
-    let {posts} = props
-    let {newPostText} = props
-    let {dispatch} = props
+    // let {posts} = props
+    // let {newPostText} = props
+    // let {dispatch} = props
 
 
     let postsElements = posts.map(p => (<Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>))
     let newPostElement=React.createRef<HTMLTextAreaElement>()
 
     const addPostHandler = () => {
-        dispatch(addPostActionCreator())
+        addPost()
+
     }
 
     let onPostChange = () => {
         if (newPostElement.current) {
-            dispatch(updateNewPostTextActionCreator(newPostElement.current.value))
+            updateNewPostText(newPostElement.current.value)
         }
-        // updateMewPostText(newPostElement.current.value)
     }
 
 
