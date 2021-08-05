@@ -1,17 +1,17 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post"
-import {PostType} from "../../../redux/store";
+
+
 
 
 
 type MyPostsPropsType = {
-    posts:Array<PostType>
+    // posts:Array<PostType>
+    posts:  {id: number, message: string, likesCount: number}[]
     newPostText:string
     addPost:()=>void
     updateNewPostText:(text:string)=>void
-
-
 }
 
 const MyPosts: React.FC<MyPostsPropsType> = ({posts,newPostText,addPost,updateNewPostText}) => {

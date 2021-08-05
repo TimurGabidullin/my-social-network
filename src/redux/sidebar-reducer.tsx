@@ -1,10 +1,10 @@
 import React from 'react';
-import {ActionsType, SidebarType} from "./store";
+import {ActionsType} from "./redux-store";
 
 
 let initialState = {}
 
-const sidebarReducer = (state: SidebarType = initialState, action: ActionsType) => {
+const sidebarReducer = (state = initialState, action: ActionsType) => {
 
 
     return state

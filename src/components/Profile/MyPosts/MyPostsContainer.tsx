@@ -1,25 +1,22 @@
 import React from 'react';
 import MyPosts from "./MyPosts"
-import {ActionsType, PostType} from "../../../redux/store";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
+import {StoreType} from "../../../redux/redux-store";
 
 
-//
+
+
 type MyPostsPropsType = {
-    posts:Array<PostType>
-    dispatch: (action: ActionsType) => void
-    newPostText:string
+    store:StoreType
 }
 
 
+const MyPostsContainer: React.FC<MyPostsPropsType> = (props) => {
 
 
-const MyPostsContainer: React.FC<MyPostsPropsType> = ({posts,newPostText,dispatch}) => {
-
-
-    // let {posts} = props
-    // let {newPostText} = props
-    // let {dispatch} = props
+    let {posts} = props.store.getState().profilePage
+    let {newPostText} = props.store.getState().profilePage
+    let {dispatch} = props.store
 
 
     const addPostHandler = () => {
