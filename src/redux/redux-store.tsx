@@ -22,8 +22,6 @@ export type ActionsType = ReturnType<typeof addPostActionCreator>
 
 
 export type StoreType = {
-    _state: AppStateType
-    _rerenderEntireTree:()=>void
     subscribe: (observer: () => void) => void
     getState: () => AppStateType
     dispatch:(action:ActionsType)=>void

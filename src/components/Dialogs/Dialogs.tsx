@@ -2,34 +2,30 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {
-    ActionsType,
-    DialogType,
-    MessageType
-} from "../../redux/store";
-import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogs-reducer";
+
 
 type DialogsPropsType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
+    dialogs: {id: number, name: string}[]
+    messages:  {id: number, message: string}[]
     newMessageBody: string
-    dispatch: (action:ActionsType) => void
+    updateNewMessageBody:(body:string)=>void
+    sendMessage:()=>void
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-    let {dialogs, messages,newMessageBody,dispatch} = props
+    let {dialogs, messages,newMessageBody,updateNewMessageBody,sendMessage} = props
 
     let dialogsElements = dialogs.map(d => <DialogItem id={d.id} name={d.name}/>)
     let messagesElements = messages.map(m => <Message id={m.id} message={m.message}/>)
 
 
     const onSendMessageClick = () => {
-        dispatch(sendMessageActionCreator());
+        sendMessage();
     }
 
     const onNewMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(updateNewMessageBodyActionCreator(e.currentTarget.value))
+        updateNewMessageBody(e.currentTarget.value)
     }
 
     return (
