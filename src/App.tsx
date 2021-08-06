@@ -9,12 +9,12 @@ import {StoreType} from "./redux/redux-store";
 
 
 type AppPropsType = {
-    store: StoreType
+    // store: StoreType
 }
 
 const App:React.FC<AppPropsType> = (props) => {
 
-    let {store}=props
+    // let {store}=props
 
 
     return (
@@ -22,9 +22,9 @@ const App:React.FC<AppPropsType> = (props) => {
             <Header/>
             <Navbar/>
             <div className={'app-wrapper-content'}>
-                <Route path='/dialogs' render={() => <DialogsContainer store={store}/>}
+                <Route path='/dialogs' render={() => <DialogsContainer/>}
                 />
-                <Route path='/profile' render={() => <Profile store={store}/>}
+                <Route path='/profile' render={() => <Profile/>}
                 />
             </div>
         </div>
