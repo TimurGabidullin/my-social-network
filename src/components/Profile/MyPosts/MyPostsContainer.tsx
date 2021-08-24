@@ -5,9 +5,7 @@ import {StoreType} from "../../../redux/redux-store";
 import StoreContext from "../../../StoreContext";
 
 
-type MyPostsContainerPropsType = {
-    // store:StoreType
-}
+type MyPostsContainerPropsType = {}
 
 const MyPostsContainer: React.FC<MyPostsContainerPropsType> = (props) => {
     return (

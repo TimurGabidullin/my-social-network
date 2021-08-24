@@ -4,6 +4,13 @@ import {ActionsType} from "./redux-store";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 const ADD_POST = 'ADD-POST'
 
+export type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
+
+export type InitialStateType=typeof initialState
 
 let initialState = {
     posts: [
@@ -13,7 +20,7 @@ let initialState = {
     newPostText: 'it-kamasutra'
 }
 
-const profileReducer = (state = initialState, action: ActionsType) => {
+const profileReducer = (state:InitialStateType = initialState, action: ActionsType) => {
 
     switch (action.type) {
         case ADD_POST:
