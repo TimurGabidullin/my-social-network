@@ -5,17 +5,11 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {Route} from "react-router-dom";
-import {StoreType} from "./redux/redux-store";
 
 
-type AppPropsType = {
-    // store: StoreType
-}
+type AppPropsType = {}
 
 const App:React.FC<AppPropsType> = (props) => {
-
-    // let {store}=props
-
 
     return (
         <div className="app-wrapper">

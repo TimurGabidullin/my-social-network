@@ -8,7 +8,6 @@ type DialogsContainerPropsType = {
 
 const DialogsContainer: React.FC<DialogsContainerPropsType> = (props) => {
 
-
     return (
         <StoreContext.Consumer>{
             (store) => {

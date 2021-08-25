@@ -1,7 +1,6 @@
 import React from 'react';
 import MyPosts from "./MyPosts"
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
-import {StoreType} from "../../../redux/redux-store";
 import StoreContext from "../../../StoreContext";
 
 
@@ -11,8 +10,7 @@ const MyPostsContainer: React.FC<MyPostsContainerPropsType> = (props) => {
     return (
         <StoreContext.Consumer>{
             (store) => {
-                let {posts} = store.getState().profilePage
-                let {newPostText} = store.getState().profilePage
+                let state = store.getState().profilePage
                 let {dispatch} = store
 
                 const addPostHandler = () => {
@@ -23,13 +21,11 @@ const MyPostsContainer: React.FC<MyPostsContainerPropsType> = (props) => {
                     if (text) {
                         dispatch(updateNewPostTextActionCreator(text))
                     }
-
                 }
 
                 return <MyPosts addPost={addPostHandler}
                                 updateNewPostText={onPostChange}
-                                posts={posts}
-                                newPostText={newPostText}/>
+                                profilePage={state}/>
             }
         }
         </StoreContext.Consumer>
