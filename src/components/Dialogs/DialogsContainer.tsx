@@ -1,35 +1,44 @@
 import React from "react";
-import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "../../redux/dialogs-reducer";
+import {
+    InitialStateType,
+    sendMessageActionCreator,
+    updateNewMessageBodyActionCreator
+} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
-import StoreContext from "../../StoreContext";
+import {connect} from "react-redux";
+import {AppStateType} from "../../redux/redux-store";
+import {Dispatch} from "redux";
 
-type DialogsContainerPropsType = {
+
+type mapStateToPropsType = {
+    dialogsPage: InitialStateType
 }
 
-const DialogsContainer: React.FC<DialogsContainerPropsType> = (props) => {
+type MapDispatchToPropsType = {
+    updateNewMessageBody: (body: string) => void
+    sendMessage: () => void
+}
 
-    return (
-        <StoreContext.Consumer>{
-            (store) => {
-                let state = store.getState().dialogsPage
-                let {dispatch} = store
 
-                const onSendMessageClick = () => {
-                    dispatch(sendMessageActionCreator());
-                }
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
+}
 
-                const onNewMessageChange = (body: string) => {
-                    dispatch(updateNewMessageBodyActionCreator(body))
-                }
-                return <Dialogs dialogsPage={state}
-                                updateNewMessageBody={onNewMessageChange}
-                                sendMessage={onSendMessageClick}
-                />
-            }
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+    return {
+        updateNewMessageBody: (body) => {
+            dispatch(updateNewMessageBodyActionCreator(body))
+        },
+        sendMessage: () => {
+            dispatch(sendMessageActionCreator())
         }
-        </StoreContext.Consumer>
-    )
+    }
 }
+
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
 
 export default DialogsContainer;
