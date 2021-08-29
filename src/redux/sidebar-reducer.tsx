@@ -5,7 +5,7 @@ export type InitialStateType=typeof initialState
 
 let initialState = {}
 
-const sidebarReducer = (state:InitialStateType = initialState, action: ActionsType) => {
+const sidebarReducer = (state:InitialStateType = initialState, action: ActionsType):InitialStateType => {
     return state
 }
 
