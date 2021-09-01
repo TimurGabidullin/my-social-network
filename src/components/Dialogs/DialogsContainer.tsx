@@ -10,7 +10,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 
 
-type mapStateToPropsType = {
+type MapStateToPropsType = {
     dialogsPage: InitialStateType
 }
 
@@ -20,7 +20,7 @@ type MapDispatchToPropsType = {
 }
 
 
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage
     }

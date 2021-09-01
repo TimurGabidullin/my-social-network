@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {ActionsType} from "./redux-store";
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
