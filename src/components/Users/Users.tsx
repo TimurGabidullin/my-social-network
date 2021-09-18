@@ -17,18 +17,22 @@ const Users: React.FC<UsersPropsType> = (props) => {
 
     let {follow, unfollow, setUsers} = props
     let users = props.users.users
-    if (users.length === 0) {
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response=>{
-            setUsers(response.data.items)
-        })
+    let getUsers = () => {
 
+        if (users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                setUsers(response.data.items)
+            })
+        }
     }
+
     return <div>
+        <button onClick={getUsers}>Get Users</button>
         {
             users.map(u => <div key={u.id}>
                 <div>
-                    <img src={u.photos.small!==null?u.photos.small:userPhoto} className={styles.userPhoto}/>
+                    <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.userPhoto}/>
                 </div>
                 <div>
                     {u.followed
