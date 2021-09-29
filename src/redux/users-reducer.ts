@@ -19,7 +19,7 @@ export type InitialStateType = typeof initialState
 
 let initialState = {
     users: [] as UserType[],
-    pageSize: 5,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
 }

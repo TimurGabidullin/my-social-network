@@ -1,5 +1,5 @@
 import React from 'react'
-import Users from "./Users";
+
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
@@ -11,6 +11,13 @@ import {
     unfollowAC,
     UserType
 } from "../../redux/users-reducer";
+
+import axios from "axios";
+import Users from "./Users";
+
+
+
+
 
 
 type MapStateToPropsType = {
@@ -59,4 +66,55 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users)
+type UsersAPIPropsType = {
+    users: UserType[]
+    pageSize:number
+    totalUsersCount: number
+    follow: (userId: string) => void
+    unfollow: (userId: string) => void
+    setUsers: (users: UserType[]) => void
+    currentPage:number
+    setCurrentPage:(pageNumber:number)=>void
+    setTotalUsersCount:(totalCount:number)=>void
+}
+
+class UsersAPIComponent extends React.Component<UsersAPIPropsType> {
+
+    constructor(props: UsersAPIPropsType) {
+        super(props);
+    }
+
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+
+            })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+    }
+
+
+    render() {
+
+
+        return <Users onPageChanged={this.onPageChanged}
+                      users={this.props.users}
+                      pageSize={this.props.pageSize}
+                      totalUsersCount={this.props.totalUsersCount}
+                      follow={this.props.follow}
+                      unfollow={this.props.unfollow}
+                      currentPage={this.props.currentPage}
+        />
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
