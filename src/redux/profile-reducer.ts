@@ -1,8 +1,8 @@
-
 import {ActionsType} from "./redux-store";
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 const ADD_POST = 'ADD-POST'
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 export type PostType = {
     id: number
@@ -10,17 +10,42 @@ export type PostType = {
     likesCount: number
 }
 
-export type InitialStateType=typeof initialState
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string,
+        vk: string,
+        facebook: string,
+        instagram: string,
+        twitter: string,
+        website: string,
+        youtube: string,
+        mainLink: string,
+    }
+    photos: {
+        small: string,
+        large: string
+    }
+} |null
+
+
+export type InitialStateType = typeof initialState
+
+
 
 let initialState = {
     posts: [
         {id: 1, message: 'Hi, how are you?', likesCount: 12},
         {id: 2, message: `It's my first post`, likesCount: 11}
     ],
-    newPostText: 'it-kamasutra'
+    newPostText: 'it-kamasutra',
+    profile: null as ProfileType
 }
 
-const profileReducer = (state: InitialStateType = initialState, action: ActionsType):InitialStateType => {
+const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case ADD_POST: {
             return {
@@ -34,6 +59,11 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
         case UPDATE_NEW_POST_TEXT: {
             return {
                 ...state, newPostText: action.newText
+            }
+        }
+        case SET_USER_PROFILE: {
+            return {
+                ...state, profile: action.profile
             }
         }
         default:
@@ -55,6 +85,12 @@ export const updateNewPostTextActionCreator = (newText: string) => (
     } as const
 )
 
+export const setUserProfile = (profile: ProfileType) => (
+    {
+        type: SET_USER_PROFILE,
+        profile
+    } as const
+)
 
 
 export default profileReducer
