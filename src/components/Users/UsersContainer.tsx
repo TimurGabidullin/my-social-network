@@ -103,6 +103,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
         this.props.setCurrentPage(pageNumber)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
+                this.props.toggleIsFetching(false)
                 this.props.setTotalUsersCount(response.data.totalCount)
                 this.props.setUsers(response.data.items)
             })
