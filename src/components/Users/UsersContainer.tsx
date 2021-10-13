@@ -81,7 +81,7 @@ type UsersContainerPropsType = {
     toggleIsFetching: (isFetching: boolean) => void
 }
 
-class UsersContainer extends React.Component<UsersContainerPropsType> {
+class UsersContainer extends React.Component<UsersContainerPropsType,any> {
 
     constructor(props: UsersContainerPropsType) {
         super(props);
