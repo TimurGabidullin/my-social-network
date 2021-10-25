@@ -1,16 +1,17 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import profileReducer, {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from "./profile-reducer";
 import dialogsReducer, {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
-    follow,
+    followSuccess,
     setCurrentPage,
     setTotalUsersCount,
     setUsers, toggleFollowingProgress,
     toggleIsFetching,
-    unfollow
+     unfollowSuccess
 } from "./users-reducer";
 import authReducer, {setAuthUserData} from "./auth-reducer";
+import thunkMiddleware from "redux-thunk"
 
 
 let reducers = combineReducers({
@@ -23,15 +24,15 @@ let reducers = combineReducers({
 
 export type AppStateType = ReturnType<typeof reducers>
 
-let store = createStore(reducers);
+let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 
 export type ActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextActionCreator>
     | ReturnType<typeof updateNewMessageBodyActionCreator>
     | ReturnType<typeof sendMessageActionCreator>
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
+    | ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
