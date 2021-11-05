@@ -24,8 +24,7 @@ let reducers = combineReducers({
 
 export type AppStateType = ReturnType<typeof reducers>
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware));
-
+let store= createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type ActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextActionCreator>
@@ -42,11 +41,16 @@ export type ActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof toggleFollowingProgress>
 
 
-export type StoreType = {
-    subscribe: (observer: () => void) => void
-    getState: () => AppStateType
-    dispatch: (action: ActionsType) => void
-}
+// export type StoreType = {
+//     subscribe: (observer: () => void) => void
+//     getState: () => AppStateType
+//     dispatch: (action: ActionsType) => void
+// }
+export type StoreType = typeof store
+
+
+
+
 
 // @ts-ignore
 // store=window.store

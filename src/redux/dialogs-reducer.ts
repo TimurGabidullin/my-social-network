@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {ActionsType} from "./redux-store";
 
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY"

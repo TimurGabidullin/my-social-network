@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 
 
 
-type DialogsPropsType = {
+export type DialogsPropsType = {
     dialogsPage:InitialStateType
     isAuth: boolean
     updateNewMessageBody:(body:string)=>void
@@ -32,7 +32,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
     }
 
 
-    if (!isAuth ) return <Redirect to={'/login'}/>
+    // if (!isAuth ) return <Redirect to={'/login'}/>
 
     return (
         <div className={s.dialogs}>
