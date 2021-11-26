@@ -1,18 +1,25 @@
-import React, {FC} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import s from './ProfileInfo.module.css'
-import {ProfileType} from "../../../redux/profile-reducer";
+import {ProfileType, setStatus} from "../../../redux/profile-reducer";
 import Preloader from "../../common/Preloader/Preloader";
 
 
 type ProfileStatusPropsType = {
     status: string
     // state:{editMode:boolean}
+    updateStatus:(status:string)=>void
+}
+
+type ProfileStatusStateType = {
+    editMode: false,
+    status:string
 }
 
 class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
     state = {
         editMode: false,
+        status: this.props.status
     }
 
     activateEditMode = () => {
@@ -25,7 +32,22 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         this.setState({
             editMode: false
         })
+        this.props.updateStatus(this.state.status)
     }
+
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+        this.setState({status: e.currentTarget.value})
+
+    }
+
+    componentDidUpdate(prevProps: ProfileStatusPropsType, prevState: ProfileStatusStateType) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({status: this.props.status})
+        }
+
+    }
+
 
     render() {
         return (
@@ -37,7 +59,8 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
                 }
                 {this.state.editMode &&
                 <div>
-                    <input autoFocus={true} value={this.props.status} onBlur={this.deactivateEditMode}/>
+                    <input autoFocus={true} onChange={this.onStatusChange} value={this.state.status}
+                           onBlur={this.deactivateEditMode}/>
                 </div>
                 }
             </div>
