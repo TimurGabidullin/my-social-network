@@ -13,10 +13,11 @@ import usersReducer, {
     setTotalUsersCount,
     setUsers, toggleFollowingProgress,
     toggleIsFetching,
-     unfollowSuccess
+    unfollowSuccess
 } from "./users-reducer";
 import authReducer, {setAuthUserData} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk"
+import {reducer as formReducer} from 'redux-form'
 
 
 let reducers = combineReducers({
@@ -25,11 +26,12 @@ let reducers = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    form: formReducer
 })
 
 export type AppStateType = ReturnType<typeof reducers>
 
-let store= createStore(reducers, applyMiddleware(thunkMiddleware));
+let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type ActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextActionCreator>
@@ -53,9 +55,6 @@ export type ActionsType = ReturnType<typeof addPostActionCreator>
 //     dispatch: (action: ActionsType) => void
 // }
 export type StoreType = typeof store
-
-
-
 
 
 // @ts-ignore

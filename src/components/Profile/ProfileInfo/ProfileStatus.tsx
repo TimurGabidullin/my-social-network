@@ -11,11 +11,13 @@ type ProfileStatusPropsType = {
 }
 
 type ProfileStatusStateType = {
-    editMode: false,
+    editMode: boolean
     status:string
 }
 
-class ProfileStatus extends React.Component<ProfileStatusPropsType> {
+
+
+class ProfileStatus extends React.Component<ProfileStatusPropsType,ProfileStatusStateType> {
 
     state = {
         editMode: false,
