@@ -3,9 +3,8 @@ import profileReducer, {
     addPostActionCreator,
     setStatus,
     setUserProfile,
-    updateNewPostTextActionCreator
 } from "./profile-reducer";
-import dialogsReducer, {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "./dialogs-reducer";
+import dialogsReducer, {sendMessageActionCreator} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
     followSuccess,
@@ -26,7 +25,7 @@ let reducers = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
 })
 
 export type AppStateType = ReturnType<typeof reducers>
@@ -34,8 +33,6 @@ export type AppStateType = ReturnType<typeof reducers>
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type ActionsType = ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextActionCreator>
-    | ReturnType<typeof updateNewMessageBodyActionCreator>
     | ReturnType<typeof sendMessageActionCreator>
     | ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
