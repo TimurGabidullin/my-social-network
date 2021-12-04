@@ -2,12 +2,14 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post"
 import {InitialStateType} from "../../../redux/profile-reducer";
-import  {Field, InjectedFormProps,reduxForm,} from "redux-form";
+import {Field, InjectedFormProps, reduxForm,} from "redux-form";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {TextArea} from "../../common/FormsControls/FormsControls";
 
 
 type MyPostsPropsType = {
     profilePage: InitialStateType
-    addPost: (newPostText:string) => void
+    addPost: (newPostText: string) => void
 }
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -19,7 +21,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>))
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
-    const addPostHandler = (values:DataFormType) => {
+    const addPostHandler = (values: DataFormType) => {
         addPost(values.newPostText)
     }
 
@@ -34,16 +36,21 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     )
 }
 
-type DataFormType={
-    newPostText:string
+type DataFormType = {
+    newPostText: string
 }
 
-const AddNewPostForm:React.FC<InjectedFormProps<DataFormType>> = (props) => {
-    const {handleSubmit}=props
+const maxLength10=maxLengthCreator(10)
+
+const AddNewPostForm: React.FC<InjectedFormProps<DataFormType>> = (props) => {
+    const {handleSubmit} = props
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <Field component={'textarea'} name={'newPostText'}/>
+                <Field component={TextArea}
+                       name={'newPostText'}
+                       validate={[required,maxLength10]}
+                       placeholder={'Post message'}/>
             </div>
             <div>
                 <button>Add post</button>
@@ -53,7 +60,7 @@ const AddNewPostForm:React.FC<InjectedFormProps<DataFormType>> = (props) => {
 }
 
 
-const MyPostFormRedux=reduxForm<DataFormType>({form:'profileAddNewPostForm'})(AddNewPostForm)
+const MyPostFormRedux = reduxForm<DataFormType>({form: 'profileAddNewPostForm'})(AddNewPostForm)
 
 
 export default MyPosts
