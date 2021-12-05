@@ -1,5 +1,5 @@
 import {ActionsType} from "./redux-store";
-import {Dispatch} from "redux";
+import {AnyAction, Dispatch} from "redux";
 import {authAPI} from "../api/api";
 
 const SET_USER_DATA = "SET_USER_DATA"
@@ -20,8 +20,7 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
 
             return {
                 ...state,
-                ...action.data,
-                isAuth: true,
+                ...action.payload,
             }
 
         default:
@@ -30,13 +29,14 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
 
 }
 
-export const setAuthUserData = (id: string | null, email: string | null, login: string | null,) => (
+export const setAuthUserData = (id: string | null, email: string | null, login: string | null,isAuth:boolean) => (
     {
         type: SET_USER_DATA,
-        data: {
+        payload: {
             id,
             email,
-            login
+            login,
+            isAuth,
         },
     } as const
 )
@@ -46,7 +46,27 @@ export const getAuthUserData = () => {
         authAPI.me().then(response => {
             if (response.data.resultCode === 0) {
                 let {id, login, email} = response.data.data
-                dispatch(setAuthUserData(id, login, email))
+                dispatch(setAuthUserData(id, login, email,true))
+            }
+        })
+    }
+}
+
+export const login = (email:string,password:string,rememberMe:boolean) => {
+    return (dispatch: Dispatch<any>) => {
+        authAPI.login(email,password,rememberMe).then(response => {
+            if (response.data.resultCode === 0) {
+             dispatch(getAuthUserData());
+            }
+        })
+    }
+}
+
+export const logout = () => {
+    return (dispatch: Dispatch) => {
+        authAPI.logout().then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null,true))
             }
         })
     }
@@ -54,5 +74,3 @@ export const getAuthUserData = () => {
 
 
 export default authReducer
-
-
