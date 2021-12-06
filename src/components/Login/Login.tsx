@@ -6,6 +6,8 @@ import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
+import {inspect} from "util";
+import styles from '../common/FormsControls/FormsControls.module.css'
 
 
 type FormDataType = {
@@ -38,6 +40,11 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                        name={'rememberMe'}
                        type={'checkbox'}/>Remember me
             </div>
+
+            {props.error&&<div className={styles.formSummaryError}>
+                {props.error}
+            </div>}
+
             <div>
                 <button>Login</button>
             </div>
@@ -54,28 +61,28 @@ type LoginPropsType = {
 }
 
 const Login = (props: LoginPropsType) => {
-    const {login,isAuth} = props
+    const {login, isAuth} = props
 
     const onSubmit = (formData: FormDataType) => {
         login(formData.email, formData.password, formData.rememberMe)
     }
 
-if(isAuth){
-    return <Redirect to={'/Profile'}/>
-}
-        return <div>
-            <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
-        </div>
+    if (isAuth) {
+        return <Redirect to={'/Profile'}/>
+    }
+    return <div>
+        <h1>Login</h1>
+        <LoginReduxForm onSubmit={onSubmit}/>
+    </div>
 }
 
-type MapStateToPropsType={
-    isAuth:boolean
+type MapStateToPropsType = {
+    isAuth: boolean
 }
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        isAuth:state.auth.isAuth,
+        isAuth: state.auth.isAuth,
     }
 }
 

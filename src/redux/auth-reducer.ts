@@ -1,6 +1,7 @@
 import {ActionsType} from "./redux-store";
 import {AnyAction, Dispatch} from "redux";
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "SET_USER_DATA"
 
@@ -29,7 +30,7 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
 
 }
 
-export const setAuthUserData = (id: string | null, email: string | null, login: string | null,isAuth:boolean) => (
+export const setAuthUserData = (id: string | null, email: string | null, login: string | null, isAuth: boolean) => (
     {
         type: SET_USER_DATA,
         payload: {
@@ -46,17 +47,22 @@ export const getAuthUserData = () => {
         authAPI.me().then(response => {
             if (response.data.resultCode === 0) {
                 let {id, login, email} = response.data.data
-                dispatch(setAuthUserData(id, login, email,true))
+                dispatch(setAuthUserData(id, login, email, true))
             }
         })
     }
 }
 
-export const login = (email:string,password:string,rememberMe:boolean) => {
+export const login = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: Dispatch<any>) => {
-        authAPI.login(email,password,rememberMe).then(response => {
+        authAPI.login(email, password, rememberMe).then(response => {
             if (response.data.resultCode === 0) {
-             dispatch(getAuthUserData());
+                dispatch(getAuthUserData());
+            } else {
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+                dispatch(stopSubmit('login', {_error: message}))
+
+
             }
         })
     }
@@ -66,7 +72,7 @@ export const logout = () => {
     return (dispatch: Dispatch) => {
         authAPI.logout().then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null,true))
+                dispatch(setAuthUserData(null, null, null, false))
             }
         })
     }
