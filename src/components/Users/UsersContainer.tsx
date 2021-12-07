@@ -144,5 +144,5 @@ export default compose<React.ComponentType>(connect(mapStateToProps, {
         setCurrentPage,
         getUsers,
     } as MapDispatchToPropsType),
-    withAuthRedirect
+    // withAuthRedirect
 )(UsersContainer)

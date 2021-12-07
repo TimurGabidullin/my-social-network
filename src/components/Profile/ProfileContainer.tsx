@@ -12,7 +12,7 @@ import Dialogs from "../Dialogs/Dialogs";
 type MapStatePropsType = {
     profile: ProfileType
     status: string
-    authorizedUserId: null|string
+    authorizedUserId: string
     isAuth: boolean
 }
 
@@ -24,8 +24,8 @@ type MapDispatchPropsType = {
 }
 
 type PathParamsType = {
-    userId: any
-    // userId: string
+    // userId: any
+    userId: string
 }
 
 type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType & RouteComponentProps<PathParamsType>
@@ -34,7 +34,12 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if (!userId) userId = this.props.authorizedUserId
+        if (!userId) {
+            userId = this.props.authorizedUserId
+            if (!userId) {
+                this.props.history.push('/login')
+            }
+        }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
     }
@@ -54,7 +59,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    authorizedUserId: state.auth.id,
+    authorizedUserId: state.auth.id as string,
     isAuth: state.auth.isAuth
 })
 
