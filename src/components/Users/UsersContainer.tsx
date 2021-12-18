@@ -18,7 +18,7 @@ import {
     getTotalUsersCount,
     getCurrentPage,
     getIsFetching,
-    getFollowingInProgress
+    getFollowingInProgress, 
 } from "../../redux/users-selectors";
 
 
@@ -51,6 +51,7 @@ type MapDispatchToPropsType = {
 
 let mapStateToProps = (state: AppStateType): { followingInProgress: string[] | []; totalUsersCount: number; pageSize: any; isFetching: boolean; currentPage: number; users: UserType[]} => {
     return {
+        // users: getUsers(state),
         users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
