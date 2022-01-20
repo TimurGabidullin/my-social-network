@@ -12,7 +12,7 @@ type MyPostsPropsType = {
     addPost: (newPostText: string) => void
 }
 
-const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+const MyPosts = React.memo((props: MyPostsPropsType) => {
 
     let state = props.profilePage
     let {addPost} = props
@@ -34,13 +34,13 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
             </div>
         </div>
     )
-}
+})
 
 type DataFormType = {
     newPostText: string
 }
 
-const maxLength10=maxLengthCreator(10)
+const maxLength10 = maxLengthCreator(10)
 
 const AddNewPostForm: React.FC<InjectedFormProps<DataFormType>> = (props) => {
     const {handleSubmit} = props
@@ -49,7 +49,7 @@ const AddNewPostForm: React.FC<InjectedFormProps<DataFormType>> = (props) => {
             <div>
                 <Field component={TextArea}
                        name={'newPostText'}
-                       validate={[required,maxLength10]}
+                       validate={[required, maxLength10]}
                        placeholder={'Post message'}/>
             </div>
             <div>
