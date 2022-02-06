@@ -5,6 +5,7 @@ import {Dispatch} from "redux";
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
+const DELETE_POST = 'DELETE_POST'
 
 export type PostType = {
     id: number
@@ -65,6 +66,12 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
                 ...state, status: action.status
             }
         }
+        case DELETE_POST: {
+            return {
+                ...state, posts: state.posts.filter(p=>p.id!=action.postId)
+            }
+        }
+
         default:
             return state
     }
@@ -89,6 +96,13 @@ export const setStatus = (status: string) => (
     {
         type: SET_STATUS,
         status
+    } as const
+)
+
+export const deletePost = (postId:number) => (
+    {
+        type: DELETE_POST,
+        postId
     } as const
 )
 
