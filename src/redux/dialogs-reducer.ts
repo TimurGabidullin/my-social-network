@@ -1,4 +1,3 @@
-
 import {ActionsType} from "./redux-store";
 
 const SEND_MESSAGE = "SEND-MESSAGE"

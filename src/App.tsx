@@ -11,13 +11,8 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/redux-store";
-import {ProfileType} from "./redux/profile-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 
-//
-// type AppPropsType = {
-//     getAuthUserData:()=>void
-// }
 
 type MapDispatchToPropsType = {
     initializeApp:()=>void
