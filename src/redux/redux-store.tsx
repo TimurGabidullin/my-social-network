@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore,compose} from "redux";
 import profileReducer, {
     addPostActionCreator, deletePost,
     setStatus,
@@ -20,6 +20,7 @@ import {reducer as formReducer} from 'redux-form'
 import appReducer, {initializedSuccess} from "./app-reducer";
 
 
+
 let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
@@ -32,7 +33,11 @@ let reducers = combineReducers({
 
 export type AppStateType = ReturnType<typeof reducers>
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+
+ const composeEnhancers =(window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+ const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
+
+// let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type ActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof sendMessageActionCreator>
