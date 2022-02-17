@@ -25,7 +25,7 @@ import {
 type MapStateToPropsType = {
     users: UserType[]
     pageSize: number
-    totalUsersCount: number
+    totalItemsCount: number
     currentPage: number
     isFetching: boolean
     followingInProgress: string[] | []

@@ -1,3 +1,15 @@
 .selectedPage{
     font-weight: bold;
+    border: black 1px solid;
+}
+.paginator{
+display: flex;
+}
+
+span{
+    padding: 0 2px;
+    border: black 1px dotted;
+}
+button{
+    margin: 0;
 }
