@@ -40,7 +40,7 @@ let Paginator: React.FC<UsersPropsType> = (props) => {
                         onPageChanged(p)
                     }
                     return <span className={currentPage === p ? styles.selectedPage : ''}
-                                 onClick={onPageChangedHandler}>{p}</span>
+                                 onClick={onPageChangedHandler} key={p}>{p}</span>
                 }
             )}
 
