@@ -1,0 +1,2 @@
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}code{font-family:source-code-pro,Menlo,Monaco,Consolas,"Courier New",monospace}.app-wrapper{margin:0 auto;display:grid;width:1200px;grid-template-areas:"h h" "n c";grid-template-rows:60px 1fr;grid-template-columns:2fr 10fr}.app-wrapper-content{grid-area:c;background-color:#6495ed}
+/*# sourceMappingURL=main.4266c152.chunk.css.map */
