@@ -8,16 +8,18 @@ type ProfilePropsType = {
     profile: ProfileType
     status: string
     updateStatus:(string:string)=>void
+    savePhoto: (photo: File) => void
+    isOwner:boolean
 }
 
 const Profile: React.FC<ProfilePropsType> = (props) => {
 
-    const {profile,status,updateStatus,} = props
+    const {profile,status,updateStatus,isOwner,savePhoto} = props
 
 
     return (
         <div>
-            <ProfileInfo profile={profile} status={status} updateStatus={updateStatus} />
+            <ProfileInfo profile={profile} isOwner={isOwner} status={status} updateStatus={updateStatus} savePhoto={savePhoto}/>
             <MyPostsContainer/>
         </div>
     )
