@@ -14,26 +14,33 @@ export type PostType = {
     likesCount: number
 }
 
+
 export type ProfileType = {
+    aboutMe: string | null
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     contacts: {
-        github: string,
-        vk: string,
-        facebook: string,
-        instagram: string,
-        twitter: string,
-        website: string,
-        youtube: string,
-        mainLink: string,
+        // github : string|null
+        // vk: string|null
+        // facebook: string|null
+        // instagram: string|null
+        // twitter: string|null
+        // youtube: string|null
+        // mainLink: string|null
+        [key:string]:string|null
     }
     photos: {
         small: string,
         large: string
     }
 } | null
+
+
+
+
+
 
 export type InitialStateType = typeof initialState
 

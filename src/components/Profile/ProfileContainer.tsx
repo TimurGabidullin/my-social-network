@@ -14,7 +14,6 @@ type MapStatePropsType = {
     isAuth: boolean
 }
 
-
 type MapDispatchPropsType = {
     getUserProfile: (userId: string) => void
     getStatus: (userId: string) => void
