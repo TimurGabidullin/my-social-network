@@ -11,19 +11,18 @@ import {maxLengthCreator, required} from "../../utils/validators/validators";
 export type DialogsPropsType = {
     dialogsPage: InitialStateType
     isAuth: boolean
-    sendMessage: (newMessageBody:string) => void
+    sendMessage: (newMessageBody: string) => void
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     let state = props.dialogsPage
-    let { sendMessage,} = props
+    let {sendMessage,} = props
 
     let dialogsElements = state.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
     let messagesElements = state.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
 
-
-    const addNewMessage=(values:FormDataType)=>{
+    const addNewMessage = (values: FormDataType) => {
         sendMessage(values.newMessageBody);
     }
 
@@ -40,14 +39,13 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
     )
 }
 
-
 type FormDataType = {
-    newMessageBody:string
+    newMessageBody: string
 }
 
-const maxLength50=maxLengthCreator(50)
+const maxLength50 = maxLengthCreator(50)
 
-const AddMessageForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
     const {handleSubmit} = props
 
@@ -57,8 +55,7 @@ const AddMessageForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <Field component={TextArea}
                        name={'newMessageBody'}
                        placeholder={'Enter your message'}
-                       validate={[required,maxLength50]}/>
-
+                       validate={[required, maxLength50]}/>
             </div>
             <div>
                 <button>Send</button>
@@ -67,6 +64,6 @@ const AddMessageForm:React.FC<InjectedFormProps<FormDataType>> = (props) => {
     )
 }
 
-const AddMessageFormRedux=reduxForm<FormDataType>({form:'dialogAddMessageForm'})(AddMessageForm)
+const AddMessageFormRedux = reduxForm<FormDataType>({form: 'dialogAddMessageForm'})(AddMessageForm)
 
 export default Dialogs;

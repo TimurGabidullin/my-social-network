@@ -51,7 +51,6 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         }
     }
 
-
     render() {
 
         return (

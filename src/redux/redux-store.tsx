@@ -63,8 +63,7 @@ export type ActionsType = ReturnType<typeof addPostActionCreator>
 // }
 export type StoreType = typeof store
 
-
-// @ts-ignore
-// store=window.store
+//@ts-ignore
+window.store=store
 
 export default store

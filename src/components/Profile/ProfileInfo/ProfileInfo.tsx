@@ -65,6 +65,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEdit
             {isOwner && <div>
                 <button onClick={goToEditMode}>Edit</button>
             </div>}
+
             <div>
                 <b>Full name:</b>{profile ? profile.fullName : ''}
             </div>
@@ -96,7 +97,7 @@ type ContactPropsType = {
     contactValue: string | null
 }
 
-const Contact: React.FC<ContactPropsType> = (props) => {
+export const Contact: React.FC<ContactPropsType> = (props) => {
     return <div className={s.contact}><b>{props.contactTitle}:</b>{props.contactValue}</div>
 }
 
