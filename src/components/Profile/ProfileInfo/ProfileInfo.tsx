@@ -20,7 +20,6 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
 
     const [editMode, setEditMode] = useState(false)
 
-
     if (!profile) {
         return <Preloader/>
     }
@@ -38,17 +37,15 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
 
                 {editMode
-                    ? <ProfileDataForm profile={profile}/>
+                    ? <ProfileDataForm profile={profile} setEditMode={setEditMode}/>
                     : <ProfileData profile={profile}
                                    isOwner={isOwner}
                                    goToEditMode={() => {
                                        setEditMode(true)
                                    }}/>
                 }
-
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
-
         </div>
     )
 }
@@ -82,6 +79,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEdit
             <div>
                 <b>About me:</b>{profile ? profile.aboutMe : ''}
             </div>
+
             <div>
                 <b>Contacts:</b>{
                 Object.keys(profile ? profile.contacts : '').map(key => {

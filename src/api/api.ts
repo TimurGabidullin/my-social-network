@@ -22,14 +22,14 @@ export const usersAPI = {
     follow(userId: string) {
         return instance.post(`follow/${userId}`)
     },
-    getProfile(userId: string) {
+    getProfile(userId: string|null) {
         console.warn('Obselete method. Please use profileAPI object.')
         return profileAPI.getProfile(userId)
     }
 }
 
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: string|null) {
         return instance.get(`profile/` + userId)
     },
     getStatus(userId: string) {

@@ -1,6 +1,7 @@
-import {ActionsType} from "./redux-store";
+import {ActionsType, AppStateType} from "./redux-store";
 import {profileAPI, usersAPI} from "../api/api";
 import {Dispatch} from "redux";
+import {InputsType} from "../components/Profile/ProfileDataForm";
 
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
@@ -29,17 +30,13 @@ export type ProfileType = {
         // twitter: string|null
         // youtube: string|null
         // mainLink: string|null
-        [key:string]:string|null
+        [key: string]: string | null
     }
     photos: {
         small: string,
         large: string
     }
 } | null
-
-
-
-
 
 
 export type InitialStateType = typeof initialState
@@ -131,7 +128,7 @@ export const deletePost = (postId: number) => (
     } as const
 )
 
-export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+export const getUserProfile = (userId: string | null) => async (dispatch: Dispatch) => {
     let response = await usersAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
 }
@@ -155,10 +152,20 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
     }
 }
 
-export const saveProfile = (profile:any) => async (dispatch: Dispatch) => {
+export const saveProfile = (profile: InputsType,setError:Function) => async (dispatch: Dispatch<any>, getState: () => AppStateType) => {
+    // debugger
+    const userId = getState().auth.id
     let response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
-        // dispatch(savePhotoSuccess(response.data.data.photos))
+        dispatch(getUserProfile(userId))
+
+    } else{
+        debugger
+        setError('contacts.vk', {
+            type: "server",
+            message: response.data.messages[0],
+        });
+
     }
 }
 
