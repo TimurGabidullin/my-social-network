@@ -17,6 +17,7 @@ export type InputsType = {
     lookingForAJobDescription: string
     aboutMe: string | null
     contacts: { [key: string]: string | null }
+    commonErr:string | null
 }
 
 const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile,setEditMode}) => {
@@ -43,16 +44,8 @@ const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile,setEditMod
         }
     )
 
-    const onSubmit: SubmitHandler<InputsType> = formData => {
-       dispatch(saveProfile(formData,setError));
-
-        // setError('contacts.vk', {
-        //     type: "server",
-        //     message: 'zur kutak',
-        // });
-
-        // setEditMode(false)
-
+    const onSubmit: SubmitHandler<InputsType> =  (formData) => {
+       dispatch(saveProfile(formData,setError,setEditMode))
     }
 
 
@@ -61,14 +54,16 @@ const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({profile,setEditMod
             <div>
                 <button>Save</button>
             </div>
-            {errors.contacts && <span>{errors.contacts.vk.message}</span>}
+            {errors.fullName && <span>{errors.fullName.message}</span>}
+            {/*{errors.commonErr && <span>{errors.commonErr.message}</span>}*/}
 
             <div>
                 <b>Full name:</b>
                 <div><input placeholder="Full name" {...register("fullName", {
                     required: 'This field is required'
+
                 })}/></div>
-                {errors.fullName && <span>{errors.fullName.message}</span>}
+                {/*{errors.fullName && <span>{errors.fullName.message}</span>}*/}
             </div>
 
             <div>

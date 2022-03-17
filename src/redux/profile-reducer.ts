@@ -152,20 +152,19 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
     }
 }
 
-export const saveProfile = (profile: InputsType,setError:Function) => async (dispatch: Dispatch<any>, getState: () => AppStateType) => {
-    // debugger
+export const saveProfile = (profile: InputsType, setError: Function,setEditMode:Function) => async (dispatch: Dispatch<any>, getState: () => AppStateType) => {
     const userId = getState().auth.id
     let response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
         dispatch(getUserProfile(userId))
+        setEditMode(false)
 
-    } else{
-        debugger
-        setError('contacts.vk', {
+    } else {
+        setError('fullName', {
             type: "server",
             message: response.data.messages[0],
         });
-
+        // return Promise.resolve(response.data.messages[0])
     }
 }
 
