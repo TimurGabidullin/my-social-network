@@ -128,24 +128,24 @@ export const deletePost = (postId: number) => (
     } as const
 )
 
-export const getUserProfile = (userId: string | null) => async (dispatch: Dispatch) => {
+export const getUserProfile = (userId: string | null) => async (dispatch: Dispatch<ActionsType>) => {
     let response = await usersAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
 }
 
-export const getStatus = (userId: string) => async (dispatch: Dispatch) => {
+export const getStatus = (userId: string) => async (dispatch: Dispatch<ActionsType>) => {
     let response = await profileAPI.getStatus(userId)
     dispatch(setStatus(response.data))
 }
 
-export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+export const updateStatus = (status: string) => async (dispatch: Dispatch<ActionsType>) => {
     let response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status))
     }
 }
 
-export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
+export const savePhoto = (file: File) => async (dispatch: Dispatch<ActionsType>) => {
     let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
@@ -160,7 +160,7 @@ export const saveProfile = (profile: InputsType, setError: Function,setEditMode:
         setEditMode(false)
 
     } else {
-        setError('fullName', {
+        setError('error', {
             type: "server",
             message: response.data.messages[0],
         });

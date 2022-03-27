@@ -17,7 +17,7 @@ export type UserType = {
     followed: boolean
     name: string
     status: string
-    location: { city: string, country: string }
+    // location: { city: string, country: string }
 }
 
 export type InitialStateType = typeof initialState

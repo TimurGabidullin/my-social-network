@@ -14,7 +14,7 @@ import usersReducer, {
     toggleIsFetching,
     unfollowSuccess
 } from "./users-reducer";
-import authReducer, {setAuthUserData} from "./auth-reducer";
+import authReducer, {getCaptchaUrlSuccess, setAuthUserData} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk"
 import {reducer as formReducer} from 'redux-form'
 import appReducer, {initializedSuccess} from "./app-reducer";
@@ -54,6 +54,8 @@ export type ActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePost>
     | ReturnType<typeof savePhotoSuccess>
+    | ReturnType<typeof getCaptchaUrlSuccess>
+
 
 
 // export type StoreType = {
