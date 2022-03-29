@@ -1,11 +1,8 @@
 import {ActionsType} from "./redux-store";
 import {Dispatch} from "redux";
-import {authAPI} from "../api/api";
-import {stopSubmit} from "redux-form";
 import {getAuthUserData} from "./auth-reducer";
 
 const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS"
-
 
 export type InitialStateType = typeof initialState
 
@@ -24,7 +21,6 @@ const appReducer = (state: InitialStateType = initialState, action: ActionsType)
         default:
             return state
     }
-
 }
 
 export const initializedSuccess = () => (
@@ -41,6 +37,5 @@ export const initializeApp = () => {
             })
     }
 }
-
 
 export default appReducer

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styles from "../Paginator/Paginator.module.css";
+import cn from 'classnames';
 
 type UsersPropsType = {
     pageSize:number
@@ -30,7 +31,7 @@ let Paginator: React.FC<UsersPropsType> = (props) => {
     let leftPortionPageNumber = (portionNumber - 1) * portionSize - 1
     let rightPortionPageNumber = portionNumber * portionSize
 
-    return <div className={styles.paginator}>
+    return <div className={cn(styles.paginator)}>
         {portionNumber > 1 && <button onClick={() => setPortionNumber(portionNumber - 1)}>PREV</button>}
 
         {pages
@@ -39,7 +40,7 @@ let Paginator: React.FC<UsersPropsType> = (props) => {
                     let onPageChangedHandler = () => {
                         onPageChanged(p)
                     }
-                    return <span className={currentPage === p ? styles.selectedPage : ''}
+                    return <span className={cn({[styles.selectedPage]:currentPage === p },styles.pageNumber)}
                                  onClick={onPageChangedHandler} key={p}>{p}</span>
                 }
             )}

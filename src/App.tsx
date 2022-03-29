@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {Route, RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, Route, RouteComponentProps, Switch, withRouter} from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
@@ -24,9 +24,19 @@ type MapDispatchToPropsType = {
 
 class App extends React.Component<MapDispatchToPropsType & MapStatePropsType & RouteComponentProps<any>> {
 
+    catchAllUnhandledErrors = (event: PromiseRejectionEvent) => {
+        console.error('Unhandled rejection (promise: ', event.promise, ', reason: ', event.reason, ').');
+    }
+
     componentDidMount() {
         this.props.initializeApp()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    }
+
 
     render() {
         if (!this.props.initialized) {
@@ -39,18 +49,21 @@ class App extends React.Component<MapDispatchToPropsType & MapStatePropsType & R
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
                     <Suspense fallback={<Preloader/>}>
-                        <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                        <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                        <Route path='/users' render={() => <UsersContainer/>}/>
-                        {/*<Route path='/login' render={() => <LoginPage/>}/>*/}
-                        <Route path='/login' render={() => <LoginWithHook/>}/>
+                        <Switch>
+                            <Route exact path='/' render={() => <Redirect to={"/profile"}/>}/>
+                            <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                            <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                            <Route path='/users' render={() => <UsersContainer/>}/>
+                            {/*<Route path='/login' render={() => <LoginPage/>}/>*/}
+                            <Route path='/login' render={() => <LoginWithHook/>}/>
+                            <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
+                        </Switch>
                     </Suspense>
                 </div>
             </div>
         );
     }
 }
-
 
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => ({

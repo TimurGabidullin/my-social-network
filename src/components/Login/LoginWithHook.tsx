@@ -24,7 +24,7 @@ type DataType = {
 const Login = (props: LoginPropsType) => {
     const {loginWithHook, isAuth, captchaUrl} = props
     const {register, handleSubmit, setError, clearErrors, formState: {errors}} = useForm({mode: 'onBlur'});
-    const onSubmit: SubmitHandler<any> = (data: any) => {
+    const onSubmit: SubmitHandler<any> = (data: DataType) => {
         loginWithHook(data.email, data.password, data.rememberMe ,data.captcha,setError)
     }
 
