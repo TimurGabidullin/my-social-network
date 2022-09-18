@@ -105,5 +105,4 @@ export default compose<React.ComponentType>(connect(mapStateToProps, {
         unfollow,
         setCurrentPage,
         requestUsers,
-    } as MapDispatchToPropsType),
-)(UsersContainer)
+    } as MapDispatchToPropsType),)(UsersContainer)
