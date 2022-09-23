@@ -22,11 +22,16 @@ let User: React.FC<UsersPropsType> = (props) => {
         followingInProgress,
     } = props
     
-    return <div>
+    return <div className={styles.user}>
                 <div>
                     <NavLink to={'/profile/' + user.id}><img src={user.photos.small !== null ? user.photos.small : userPhoto}
                                                           className={styles.userPhoto}/></NavLink>
                 </div>
+
+
+
+
+
                 <div>
                     {user.followed
                         ? <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
